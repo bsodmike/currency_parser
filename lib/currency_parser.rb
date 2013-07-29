@@ -1,28 +1,32 @@
 # encoding: utf-8
 
-# Defaults:
-# * :format - The default format is `:de`
-# * :separator - The character to use after the integer part, default is ','
-# * :delimiter - The character to use between every 3 digits of the integer part, default '.'
 module CurrencyParser
-  @format = :de
-  @separator = ','
-  @delimiter = '.'
-  class << self
-    attr_accessor :format
-    attr_reader :separator, :delimiter
-  end
+  class Parser
 
-  module ParserInstanceMethods
+    # Defaults:
+    # * :format - The default format is `:de`
+    # * :separator - The character to use after the integer part, default is ','
+    # * :delimiter - The character to use between every 3 digits of the integer part, default '.'
+    def initialize(format = :de, *args)
+      # NOTE defaults
+      set_format(@format = format)
+      @allow_negative = false
+
+      opt = args.last.is_a?(Hash) ? args.pop : {}
+      @allow_negative = opt[:allow_negative] if opt[:allow_negative] && (opt[:allow_negative] == true || opt[:allow_negative] == false)
+    end
+
+    attr_accessor :format
+    attr_accessor :allow_negative
+    attr_reader :separator, :delimiter
+
     # @param value [String]
     # @param args [Hash]
     # @option args [String] :format the format
     # @return [String]
-    def to_string(value, *args)
-      opt = args.last.is_a?(Hash) ? args.pop : {}
-      set_format(opt[:format]) if opt[:format]
-
-      value = value.gsub('-', '').gsub('/', '')
+    def to_us(value)
+      value = value.gsub('-', '') unless allow_negative
+      value = value.gsub('/', '')
 
       case format
       when :de
@@ -39,16 +43,20 @@ module CurrencyParser
       end
     end
 
+    class << self
+      def to_us(value)
+        new.to_us(value)
+      end
+    end
+
     private
     def set_format(locale)
       case locale
       when :de
-        format = :de
         @separator = ','
         @delimiter = '.'
       end
     end
   end
 
-  extend ParserInstanceMethods
 end

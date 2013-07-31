@@ -17,7 +17,7 @@ $ bundle
 Or install it yourself as:
 
 ```
-$ gem install CorePlugin
+$ gem install currency_parser
 ```
 
 ## API Summary

@@ -1,3 +1,7 @@
+# v0.1.3
+
+* Raise `InvalidFormatError` when initialized with an invalid format.
+
 # v0.1.2
 
 * Remove dependency on Rails.

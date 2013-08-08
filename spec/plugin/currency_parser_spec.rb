@@ -4,6 +4,10 @@ require 'spec_helper'
 describe CurrencyParser::Parser do
   let(:subject){ CurrencyParser::Parser.new }
 
+  it "should raise InvalidFormatError if initialized with an invalid format" do
+    expect{ CurrencyParser::Parser.new(:ch) }.to raise_error
+  end
+
   describe "::to_us" do
     let(:subject){ CurrencyParser::Parser }
     it "should parse with a default `:de` format" do

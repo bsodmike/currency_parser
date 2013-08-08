@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 module CurrencyParser
+  autoload :Errors, 'currency_parser/errors'
+
   class Parser
 
     # Defaults:
@@ -55,6 +57,8 @@ module CurrencyParser
       when :de
         @separator = ','
         @delimiter = '.'
+      else
+        raise InvalidFormatError
       end
     end
   end

@@ -2,7 +2,6 @@
 
 * Fix spec for raising of `InvalidFormatError`.
 
-
 # v0.1.3
 
 * Raise `InvalidFormatError` when initialized with an invalid format.

@@ -64,6 +64,9 @@ parser.to_us("-1,23")
 => "-1.23"
 ```
 
+Invalid formats will raise an `InvalidFormatError` exception.
+
+
 ## License
 
 This project rocks and uses MIT-LICENSE.

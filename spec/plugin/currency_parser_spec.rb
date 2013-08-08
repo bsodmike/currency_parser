@@ -1,11 +1,12 @@
 # encoding: utf-8
 require 'spec_helper'
+require 'currency_parser/errors'
 
 describe CurrencyParser::Parser do
   let(:subject){ CurrencyParser::Parser.new }
 
   it "should raise InvalidFormatError if initialized with an invalid format" do
-    expect{ CurrencyParser::Parser.new(:ch) }.to raise_error
+    expect{ CurrencyParser::Parser.new(:ch) }.to raise_error(CurrencyParser::InvalidFormatError)
   end
 
   describe "::to_us" do

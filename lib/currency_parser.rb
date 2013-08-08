@@ -58,7 +58,7 @@ module CurrencyParser
         @separator = ','
         @delimiter = '.'
       else
-        raise InvalidFormatError
+        raise CurrencyParser::InvalidFormatError
       end
     end
   end

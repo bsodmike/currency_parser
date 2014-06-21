@@ -30,9 +30,7 @@ German currency format, without allowing negative values.
 parser = CurrencyParser::Parser.new
 => #<CurrencyParser::Parser:0x007feca487fe68
  @allow_negative=false,
- @delimiter=".",
  @format=:de,
- @separator=",">
 
 parser.to_us("1,23")
 => "1.23"
@@ -45,23 +43,25 @@ The same can be achieved without any change to the default configuration
 via
 
 ```
-CurrencyParser::Parser.to_us("1,23")
+CurrencyParser::Parser.to_us("1,23", :de, false)
 => "1.23"
 ```
 
 As of v0.1.2 only the **`:de`** format is supported and you can allow
 negative values as follows
 
+Supported format: **`:de`** **`:us`** **`:pl`**
+
+You can convert to that format from any format supplying delimeter and separator, and optionally allow negative values:
+
 ```
-parser = CurrencyParser::Parser.new(:de, :allow_negative => true)
+parser = CurrencyParser::Parser.new(:fr, :separator => ',', :delimeter => ' ' :allow_negative => true)
 => #<CurrencyParser::Parser:0x007feca9f999d8
  @allow_negative=true,
- @delimiter=".",
- @format=:de,
- @separator=",">
+ @format=:fr,
 
-parser.to_us("-1,23")
-=> "-1.23"
+parser.to_de("-1 000,23")
+=> "-1.000,23"
 ```
 
 Invalid formats will raise an `InvalidFormatError` exception.

@@ -16,7 +16,14 @@ describe CurrencyParser::Parser do
   describe "::to_us" do
     let(:subject){ CurrencyParser::Parser }
     it "should parse from `:de` format to `:us` format" do
-      expect(subject.to_us "1,23", :de, false).to eq("1.23")
+      expect(subject.to_us "1,23", :de).to eq("1.23")
+      expect(subject.to_us "-1,23", :de).to eq("1.23")
+    end
+    
+    context "when allowed negative values" do
+      it "should parse correctly" do
+        expect(subject.to_us "-1,23", :de, true).to eq("-1.23")
+      end
     end
   end
 

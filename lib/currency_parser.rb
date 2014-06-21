@@ -15,12 +15,12 @@ module CurrencyParser
     # Initializer
     #
     # @param [Symbol] format of the initial string
-    # @param [Hash] opts the options to create a object with
-    # @option opts [String] :separator
+    # @param [Hash] args the options to create a object with
+    # @option args [String] :separator
     #   the character to use after the integer part
-    # @option opts [String] :delimeter
+    # @option args [String] :delimeter
     #   the character to use between every 3 digits of the integer part
-    # @option opts [String] :allow_negative
+    # @option args [String] :allow_negative
     #   allow negative numbers
     def initialize(format = :de, *args)
 
@@ -59,7 +59,18 @@ module CurrencyParser
       @@formats[@format][1]
     end
 
-    # Converts to US format (instance method)
+
+    # Adds new format
+    #
+    # @param format [Symbol]
+    # @param separator [String]
+    # @param delimeter [String]
+    # @return [Hash] formats hash
+    def add_format(format, separator, delimeter)
+      @@formats.merge!(format => [ separator, delimeter ])
+    end
+
+    # Converts to US format 
     #
     # @param value [String]
     # @return [String]
@@ -67,17 +78,17 @@ module CurrencyParser
       self.class.convert_format(value, @format, :us, @allow_negative)
     end
     
-    # Converts to US format (class method)
+    # Converts to US format 
     #
     # @param value [String]
     # @param from_format [Symbol] initial format
     # @param allow_negative [Boolean]
     # @return [String]
-    def self.to_us(value, from_format, allow_negative)
+    def self.to_us(value, from_format, allow_negative = false)
       convert_format(value, from_format, :us, allow_negative)
     end
     
-    # Converts to German format (instance method)
+    # Converts to German format 
     #
     # @param value [String]
     # @return [String]
@@ -85,17 +96,17 @@ module CurrencyParser
       self.class.convert_format(value, @format, :de, @allow_negative)
     end
     
-    # Converts to German format (class method)
+    # Converts to German format 
     #
     # @param value [String]
     # @param from_format [Symbol] initial format
     # @param allow_negative [Boolean]
     # @return [String]
-    def self.to_de(value, from_format, allow_negative)
+    def self.to_de(value, from_format, allow_negative = false)
       convert_format(value, from_format, :de, allow_negative)
     end
 
-    # Converts to Polish format (instance method)
+    # Converts to Polish format 
     #
     # @param value [String]
     # @return [String]
@@ -103,13 +114,13 @@ module CurrencyParser
       self.class.convert_format(value, @format, :pl, @allow_negative)
     end
     
-    # Converts to Polish format (class method)
+    # Converts to Polish format 
     #
     # @param value [String]
     # @param from_format [Symbol] initial format
     # @param allow_negative [Boolean]
     # @return [String]
-    def self.to_pl(value, from_format, allow_negative)
+    def self.to_pl(value, from_format, allow_negative = false)
       convert_format(value, from_format, :pl, allow_negative)
     end
 

@@ -43,7 +43,7 @@ The same can be achieved without any change to the default configuration
 via
 
 ```
-CurrencyParser::Parser.to_us("1,23", :de, false)
+CurrencyParser::Parser.to_us("1,23", :de)
 => "1.23"
 ```
 

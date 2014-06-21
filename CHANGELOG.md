@@ -1,3 +1,7 @@
+# v0.2.0
+
+* Extend Gem API, partial backward compatibility
+
 # v0.1.4
 
 * Fix spec for raising of `InvalidFormatError`.
